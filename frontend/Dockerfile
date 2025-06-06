@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Set work directory
 WORKDIR /app
@@ -9,6 +9,8 @@ RUN npm install
 
 # Copy project
 COPY . .
+
+EXPOSE 3000
 
 # Start the application in development mode
 CMD ["npm", "start"]

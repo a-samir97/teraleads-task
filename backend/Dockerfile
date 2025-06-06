@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -31,8 +31,9 @@ done\n\
 exec "$@"' > /app/wait-for-it.sh \
     && chmod +x /app/wait-for-it.sh
 
-# Run migrations and collect static files
-RUN python manage.py collectstatic --noinput
-
 # Run gunicorn with wait-for-it
 CMD ["/app/wait-for-it.sh", "gunicorn", "--bind", "0.0.0.0:8000", "dental_clinic.wsgi:application"]
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
